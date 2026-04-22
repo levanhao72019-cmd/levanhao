@@ -1,12 +1,33 @@
+const API_URL = "https://levanhao.onrender.com/api";
+let currentProducts = [];
+
 document.addEventListener('DOMContentLoaded', () => {
-    // Render Products
-    renderProducts(products);
+    // Initial UI updates
     cart.updateUI();
     checkLoginStatus();
+    
+    // Fetch and Render Products
+    fetchProducts();
 
     // Event Listeners
     setupEventListeners();
 });
+
+async function fetchProducts() {
+    const grid = document.getElementById('product-grid');
+    try {
+        const response = await fetch(`${API_URL}/products`);
+        if (!response.ok) throw new Error('API Error');
+        const data = await response.json();
+        currentProducts = data;
+        renderProducts(currentProducts);
+    } catch (error) {
+        console.error("Lỗi lấy dữ liệu từ server:", error);
+        // Fallback to local data if API fails
+        currentProducts = products;
+        renderProducts(currentProducts);
+    }
+}
 
 function renderProducts(productList) {
     const grid = document.getElementById('product-grid');
@@ -38,7 +59,7 @@ function setupEventListeners() {
     const searchInput = document.getElementById('search-input');
     searchInput?.addEventListener('input', (e) => {
         const query = e.target.value.toLowerCase();
-        const filtered = products.filter(p => 
+        const filtered = currentProducts.filter(p => 
             p.name.toLowerCase().includes(query) || 
             p.team.toLowerCase().includes(query)
         );
@@ -49,14 +70,14 @@ function setupEventListeners() {
     const catFilter = document.getElementById('filter-category');
     catFilter?.addEventListener('change', (e) => {
         const cat = e.target.value;
-        const filtered = cat === 'all' ? products : products.filter(p => p.category === cat);
+        const filtered = cat === 'all' ? currentProducts : currentProducts.filter(p => p.category === cat);
         renderProducts(filtered);
     });
 
     const sortFilter = document.getElementById('sort-price');
     sortFilter?.addEventListener('change', (e) => {
         const sort = e.target.value;
-        let sorted = [...products];
+        let sorted = [...currentProducts];
         if (sort === 'low') sorted.sort((a, b) => a.price - b.price);
         if (sort === 'high') sorted.sort((a, b) => b.price - a.price);
         renderProducts(sorted);

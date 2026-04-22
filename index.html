@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sportify | Cửa hàng Quần áo Bóng đá Đỉnh cao</title>
+    <meta name="description" content="Chuyên cung cấp áo bóng đá CLB, đội tuyển quốc gia chất lượng cao, giá tốt nhất thị trường.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <header id="main-header">
+        <nav class="container">
+            <div class="logo">
+                <a href="#home">SPORT<span>IFY</span></a>
+            </div>
+            <div class="nav-links" id="nav-links">
+                <a href="#home" class="active">Trang chủ</a>
+                <a href="#shop">Cửa hàng</a>
+                <a href="#national">Đội tuyển</a>
+                <a href="#club">Câu lạc bộ</a>
+            </div>
+            <div class="nav-actions">
+                <div class="search-box">
+                    <input type="text" id="search-input" placeholder="Tìm sản phẩm...">
+                    <i data-lucide="search"></i>
+                </div>
+                <button id="cart-btn" class="icon-btn">
+                    <i data-lucide="shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </button>
+                <button id="user-btn" class="icon-btn">
+                    <i data-lucide="user"></i>
+                </button>
+            </div>
+            <button class="mobile-menu-btn" id="mobile-menu-btn">
+                <i data-lucide="menu"></i>
+            </button>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-slider" id="hero-slider">
+                <div class="slide active" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&q=80&w=1600') center/cover;">
+                    <div class="container slide-content">
+                        <h2>MÙA GIẢI MỚI - DIỆN MẠO MỚI</h2>
+                        <p>Khám phá bộ sưu tập áo đấu 2024 mới nhất từ các CLB hàng đầu thế giới.</p>
+                        <a href="#shop" class="btn btn-primary">Mua ngay</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats / Features -->
+        <section class="features container">
+            <div class="feature-card">
+                <i data-lucide="truck"></i>
+                <div>
+                    <h3>Giao hàng nhanh</h3>
+                    <p>Toàn quốc trong 2-3 ngày</p>
+                </div>
+            </div>
+            <div class="feature-card">
+                <i data-lucide="shield-check"></i>
+                <div>
+                    <h3>Chất lượng cao</h3>
+                    <p>Vải thun lạnh, thoáng khí</p>
+                </div>
+            </div>
+            <div class="feature-card">
+                <i data-lucide="refresh-cw"></i>
+                <div>
+                    <h3>Đổi trả 7 ngày</h3>
+                    <p>Nếu lỗi từ nhà sản xuất</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Product Section -->
+        <section id="shop" class="products-section container">
+            <div class="section-header">
+                <h2>Sản Phẩm Nổi Bật</h2>
+                <div class="filters">
+                    <select id="filter-category">
+                        <option value="all">Tất cả danh mục</option>
+                        <option value="club">Câu lạc bộ</option>
+                        <option value="national">Đội tuyển QG</option>
+                    </select>
+                    <select id="sort-price">
+                        <option value="default">Sắp xếp theo giá</option>
+                        <option value="low">Giá thấp đến cao</option>
+                        <option value="high">Giá cao đến thấp</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="product-grid" id="product-grid">
+                <!-- Products will be injected here -->
+                <div class="loader">Đang tải sản phẩm...</div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal Giỏ Hàng -->
+    <div id="cart-modal" class="modal">
+        <div class="modal-content cart-content">
+            <div class="modal-header">
+                <h3>Giỏ hàng của bạn</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div id="cart-items" class="cart-items">
+                <!-- Cart items here -->
+            </div>
+            <div class="cart-footer">
+                <div class="total">
+                    <span>Tổng cộng:</span>
+                    <span id="cart-total">0đ</span>
+                </div>
+                <button id="checkout-btn" class="btn btn-primary full-width">Thanh toán</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Đăng nhập / Đăng ký -->
+    <div id="auth-modal" class="modal">
+        <div class="modal-content auth-content">
+            <div class="modal-header">
+                <h3 id="auth-title">Đăng Nhập</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <form id="auth-form">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="auth-email" required placeholder="example@gmail.com">
+                </div>
+                <div class="form-group">
+                    <label>Mật khẩu</label>
+                    <input type="password" id="auth-password" required placeholder="********">
+                </div>
+                <div class="form-group" id="name-group" style="display: none;">
+                    <label>Họ và tên</label>
+                    <input type="text" id="auth-name" placeholder="Nguyễn Văn A">
+                </div>
+                <button type="submit" class="btn btn-primary full-width" id="auth-submit">Đăng Nhập</button>
+                <p class="auth-switch">Chưa có tài khoản? <a href="#" id="switch-auth">Đăng ký ngay</a></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-info">
+                <a href="#" class="logo">SPORT<span>IFY</span></a>
+                <p>Nâng tầm trải nghiệm bóng đá của bạn với trang phục thi đấu chất lượng nhất.</p>
+                <div class="social-links">
+                    <i data-lucide="facebook"></i>
+                    <i data-lucide="instagram"></i>
+                    <i data-lucide="twitter"></i>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Về chúng tôi</h4>
+                <a href="#">Giới thiệu</a>
+                <a href="#">Liên hệ</a>
+                <a href="#">Chính sách bảo mật</a>
+            </div>
+            <div class="footer-links">
+                <h4>Hỗ trợ</h4>
+                <a href="#">Hướng dẫn chọn size</a>
+                <a href="#">Chính sách đổi trả</a>
+                <a href="#">Vận chuyển</a>
+            </div>
+            <div class="footer-newsletter">
+                <h4>Đăng ký nhận tin</h4>
+                <div class="newsletter-box">
+                    <input type="email" placeholder="Email của bạn">
+                    <button class="btn-send"><i data-lucide="send"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 SPORTIFY. All rights reserved. Designed by Antigravity.</p>
+        </div>
+    </footer>
+
+    <script src="js/products.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
